@@ -20,12 +20,34 @@ interface props {
 }
 
 const VideoResult: React.FC<props> = ({ likedVideo }) => {
+	const getYouTubeVideoLink = (videoId: string): string => {
+		return `https://www.youtube.com/watch?v=${videoId}`;
+	};
+
+	const getYouTubeChannelLink = (channelId: string): string => {
+		return `https://www.youtube.com/channel/${channelId}`;
+	};
+
+	// https://stackoverflow.com/a/53567198/7835042
+	const openURL = (url: string) => {
+		window.open(url, "_blank");
+	};
 	return (
 		<div className="video-result" key={likedVideo.id}>
-			<img src={likedVideo.thumbnail} alt={likedVideo.title} />
+			<img
+				className="video-result-thumbnail"
+				onClick={() => openURL(getYouTubeVideoLink(likedVideo.id))}
+				src={likedVideo.thumbnail}
+				alt={likedVideo.title}
+			/>
 			<div className="video-result-info">
-				<div className="video-result-title">{likedVideo.title}</div>
-				<div className="video-result-channel">
+				<div className="video-result-title" onClick={() => openURL(getYouTubeVideoLink(likedVideo.id))}>
+					{likedVideo.title}
+				</div>
+				<div
+					className="video-result-channel"
+					onClick={() => openURL(getYouTubeChannelLink(likedVideo.channel.id))}
+				>
 					{likedVideo.channel.name}
 				</div>
 			</div>

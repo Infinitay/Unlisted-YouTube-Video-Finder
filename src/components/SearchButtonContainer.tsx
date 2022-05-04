@@ -21,22 +21,39 @@ const SearchButtonContainer: React.FC<props> = ({
 	totalResults,
 	setTotalResults,
 }) => {
+	const [abortController, setAbortController] = React.useState<AbortController>(new AbortController());
+	const [searching, setSearching] = React.useState(false);
+	const [isFiltering, setIsFiltering] = React.useState(false);
+
 	const handleGetLikedVideos = () => {
 		console.log("Getting liked videos...");
+		setSearching(true);
+		console.log(abortController);
 		const yt = new YouTubehelper(accessToken);
-		yt.getLikedVideos().then((result) => {
-			console.log("Got liked videos.");
-			setLikedVideos([...likedVideos, ...result.videos]);
-			setAmountLoaded(amountLoaded + result.videos.length);
-			setTotalResults(result.totalVideos);
+		yt.getAllLikedVideosSync({
+			setLikedVideos,
+			setAmountLoaded,
+			setTotalResults,
+			abortControllerSignal: abortController.signal,
 		});
+		setSearching(false);
 	};
 
-	const handleToggleFilter = () => {};
+	const handleStopFetchingLikes = () => {
+		console.log("Stopped fetching liked videos.");
+		setSearching(false);
+		abortController.abort();
+		setAbortController(new AbortController());
+	};
+
+	const handleToggleFilter = () => {
+		setIsFiltering(!isFiltering);
+	};
+
 	return (
 		<div>
-			<button id="getLikedVideos" onClick={handleGetLikedVideos}>
-				Get Liked Videos
+			<button id="getLikedVideos" onClick={!searching ? handleGetLikedVideos : handleStopFetchingLikes}>
+				{searching ? "Stop Fetching Videos" : "Get Liked Videos"}
 			</button>
 			<button id="toggleFilter" onClick={handleToggleFilter}>
 				Toggle Filter

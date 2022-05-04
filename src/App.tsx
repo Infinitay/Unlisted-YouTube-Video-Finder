@@ -10,19 +10,17 @@ function App() {
 		<div className="App">
 			<div className="header">Unlisted YouTube Video Finder</div>
 			<div className="description">
-				Helps find unlisted videos based on the specified filters by
-				parsing your liked videos.
+				Helps find unlisted videos based on the specified filters by parsing your liked videos.
 			</div>
-			{<>
-				<br />
-				App Access Token: "{accessToken}"
-			</>}
+			{process.env.REACT_APP_DEV_MODE === "true" && (
+				<>
+					<br />
+					App Access Token: "{accessToken}"
+				</>
+			)}
 
 			{accessToken ? (
-				<Authorized
-					accessToken={accessToken}
-					setAccessToken={setAccessToken}
-				/>
+				<Authorized accessToken={accessToken} setAccessToken={setAccessToken} />
 			) : (
 				<Authorize setAccessToken={setAccessToken} />
 			)}

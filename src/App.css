@@ -4,3 +4,64 @@
 	align-items: center;
 	text-align: center;
 }
+
+.videos {
+	overflow-y: scroll;
+	max-width: 40vw;
+	max-height: 80vh;
+	/* 	border-radius: 3px;
+	border-color: black;
+	border-style: solid; */
+}
+
+/* 
+<div className="video-result" key={likedVideo.id}>
+	<img
+		className="video-result-thumbnail"
+		src={likedVideo.thumbnail}
+		alt={likedVideo.title}
+	/>
+	<div className="video-result-info">
+		<div className="video-result-title">{likedVideo.title}</div>
+		<div className="video-result-channel">
+			{likedVideo.channel.name}
+		</div>
+	</div>
+</div>
+		 */
+.video-result {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	/* Use margin over padding when placing the element in relation to another */
+	margin: 10px;
+}
+
+/* Change all .video-result children to the same cursor style as a hyperlink */
+.video-result > * {
+	cursor: pointer;
+}
+
+.video-result-thumbnail {
+	/* https://calculateaspectratio.com/16-9-calculator */
+	min-width: 360px;
+	min-height: 203px;
+	width: 360px;
+	height: 203px;
+}
+
+.video-result-info {
+	margin-left: 20px;
+	text-align: left;
+}
+
+.video-result-title {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+@media (min-width: 1080px) {
+	.videos {
+		max-width: 60vw;
+	}
+}
