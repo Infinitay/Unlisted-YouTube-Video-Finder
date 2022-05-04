@@ -12,6 +12,7 @@ export interface Item {
 	id: string;
 	snippet: Snippet;
 	status: Status;
+	topicDetails?: TopicDetails;
 }
 
 export interface Snippet {
@@ -55,6 +56,10 @@ export interface Status {
 	embeddable: boolean;
 	publicStatsViewable: boolean;
 	madeForKids: boolean;
+}
+
+export interface TopicDetails {
+	topicCategories: string[];
 }
 
 export interface PageInfo {

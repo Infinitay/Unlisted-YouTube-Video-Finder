@@ -22,19 +22,17 @@ interface props {
 	totalResults: number;
 }
 
-const ResultsContainer: React.FC<props> = ({
-	likedVideos,
-	amountLoaded,
-	totalResults,
-}) => {
+const ResultsContainer: React.FC<props> = ({ likedVideos, amountLoaded, totalResults }) => {
 	return (
 		<div className="results-container">
 			<div>
 				Showing {amountLoaded} of {totalResults} results
 			</div>
-			{likedVideos.map((video) => (
-				<VideoResult key={video.id} likedVideo={video} />
-			))}
+			<div className="videos">
+				{likedVideos.map((video) => (
+					<VideoResult key={video.id} likedVideo={video} />
+				))}
+			</div>
 		</div>
 	);
 };
