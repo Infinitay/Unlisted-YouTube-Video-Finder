@@ -20,18 +20,30 @@ interface props {
 	likedVideos: LikedVideo[];
 	amountLoaded: number;
 	totalResults: number;
+	filteredVideos: LikedVideo[];
+	isFiltering: boolean;
 }
 
-const ResultsContainer: React.FC<props> = ({ likedVideos, amountLoaded, totalResults }) => {
+const ResultsContainer: React.FC<props> = ({
+	likedVideos,
+	amountLoaded,
+	totalResults,
+	filteredVideos,
+	isFiltering,
+}) => {
 	return (
 		<div className="results-container">
-			<div>
-				Showing {amountLoaded} of {totalResults} results
-			</div>
+			{totalResults > 0 && (
+				<div>
+					{!isFiltering
+						? `Showing ${amountLoaded} of ${totalResults} results`
+						: `Found ${filteredVideos.length} out of ${totalResults} videos that match your filter(s)`}
+				</div>
+			)}
 			<div className="videos">
-				{likedVideos.map((video) => (
-					<VideoResult key={video.id} likedVideo={video} />
-				))}
+				{isFiltering
+					? filteredVideos.map((video) => <VideoResult key={video.id} likedVideo={video} />)
+					: likedVideos.map((video) => <VideoResult key={video.id} likedVideo={video} />)}
 			</div>
 		</div>
 	);

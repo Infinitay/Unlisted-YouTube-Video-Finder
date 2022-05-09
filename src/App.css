@@ -60,8 +60,17 @@
 	font-weight: bold;
 }
 
-@media (min-width: 1080px) {
+button#toggleFilter--enabled {
+	background-color: #4caf50;
+	color: white;
+}
+
+button#toggleFilter--disabled {
+	all: revert;
+}
+
+/* @media (min-width: 1080px) {
 	.videos {
 		max-width: 60vw;
 	}
-}
+} */
