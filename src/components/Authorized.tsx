@@ -5,7 +5,7 @@ import { GoogleLogout } from "react-google-login";
 import SearchButtonContainer from "./SearchButtonContainer";
 import { LikedVideo } from "../types";
 
-const CLIENT_ID = `969647660356-3b5th888rc6kq6ql1kurrkq98e4is3fe.apps.googleusercontent.com`;
+const CLIENT_ID = process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID || "";
 
 interface props {
 	accessToken: string;
