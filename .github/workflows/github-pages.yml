@@ -2,6 +2,9 @@ name: Build and Deploy
 on:
     push:
         branches: [master] # Run the action only when master branch is updated
+env:
+    REACT_APP_GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+    REACT_APP_DEV_MODE: ${{ secrets.REACT_APP_DEV_MODE }}
 jobs:
     build-and-deploy:
         concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession. Only one job at a time and queue the remainders.
@@ -20,6 +23,3 @@ jobs:
               with:
                   branch: gh-pages # The branch the action should deploy to.
                   folder: build # The folder the action should deploy.
-              env:
-                  REACT_APP_GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
-                  REACT_APP_DEV_MODE: false
