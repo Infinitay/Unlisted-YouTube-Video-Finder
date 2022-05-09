@@ -14,8 +14,10 @@ interface props {
 
 const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 	useEffect(() => {
-		console.log("AUTHORIZED: " + accessToken);
-	}, []);
+		if (process.env.REACT_APP_DEV_MODE === "true") {
+			console.log("AUTHORIZED: " + accessToken);
+		}
+	}, [accessToken]);
 
 	const [likedVideos, setLikedVideos] = React.useState<LikedVideo[]>([]);
 	const [amountLoaded, setAmountLoaded] = React.useState<number>(0);
@@ -38,17 +40,9 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				totalResults={totalResults}
 				setTotalResults={setTotalResults}
 			/>
-			<ResultContainer
-				likedVideos={likedVideos}
-				amountLoaded={amountLoaded}
-				totalResults={totalResults}
-			/>
+			<ResultContainer likedVideos={likedVideos} amountLoaded={amountLoaded} totalResults={totalResults} />
 			<div id="signOut">
-				<GoogleLogout
-					clientId={CLIENT_ID}
-					buttonText="Sign out"
-					onLogoutSuccess={onLogout}
-				/>
+				<GoogleLogout clientId={CLIENT_ID} buttonText="Sign out" onLogoutSuccess={onLogout} />
 			</div>
 		</div>
 	);
