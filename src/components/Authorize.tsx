@@ -24,6 +24,7 @@ const Authorize: React.FC<props> = ({ setAccessToken }) => {
 				onSuccess={authSuccess}
 				onFailure={authFail}
 				cookiePolicy={"single_host_origin"}
+				redirectUri={window.location.href}
 				scope={"https://www.googleapis.com/auth/youtube.readonly"}
 			/>
 		</div>
