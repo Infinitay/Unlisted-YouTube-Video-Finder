@@ -19,9 +19,15 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 		}
 	}, [accessToken]);
 
+	const [filterByChannel, setFilterByChannel] = React.useState("");
+	const [filterByTitle, setFilterByTitle] = React.useState("");
+	const [isFiltering, setIsFiltering] = React.useState(false);
+
 	const [likedVideos, setLikedVideos] = React.useState<LikedVideo[]>([]);
 	const [amountLoaded, setAmountLoaded] = React.useState<number>(0);
 	const [totalResults, setTotalResults] = React.useState<number>(0);
+
+	const [filteredVideos, setFilteredVideos] = React.useState<LikedVideo[]>([]);
 
 	const onLogout = () => {
 		console.log("Logged out.");
@@ -30,7 +36,7 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 
 	return (
 		<div>
-			<Filters />
+			<Filters setFilterByChannel={setFilterByChannel} setFilterByTitle={setFilterByTitle} />
 			<SearchButtonContainer
 				accessToken={accessToken}
 				likedVideos={likedVideos}
@@ -39,8 +45,19 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				setAmountLoaded={setAmountLoaded}
 				totalResults={totalResults}
 				setTotalResults={setTotalResults}
+				filterByChannel={filterByChannel}
+				filterByTitle={filterByTitle}
+				isFiltering={isFiltering}
+				setIsFiltering={setIsFiltering}
+				setFilteredVideos={setFilteredVideos}
 			/>
-			<ResultContainer likedVideos={likedVideos} amountLoaded={amountLoaded} totalResults={totalResults} />
+			<ResultContainer
+				likedVideos={likedVideos}
+				amountLoaded={amountLoaded}
+				totalResults={totalResults}
+				filteredVideos={filteredVideos}
+				isFiltering={isFiltering}
+			/>
 			<div id="signOut">
 				<GoogleLogout clientId={CLIENT_ID} buttonText="Sign out" onLogoutSuccess={onLogout} />
 			</div>
