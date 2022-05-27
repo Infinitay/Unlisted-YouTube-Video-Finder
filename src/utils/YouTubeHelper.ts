@@ -9,7 +9,7 @@ interface GetAllLikedVideosSync {
 	delay?: number;
 }
 
-export default class YouTubehelper {
+export default class YouTubeHelper {
 	// Private variable to store auth token
 	private oauthToken: string;
 
