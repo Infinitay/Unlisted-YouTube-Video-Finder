@@ -60,7 +60,7 @@ export default class YouTubeHelper {
 		};
 	}
 
-	async getAllLikedVideosSync(options: GetAllLikedVideosSync): Promise<{
+	async getAllLikedVideos(options?: GetAllLikedVideosSync): Promise<{
 		videos: LikedVideo[];
 		loadedVideos: number;
 		totalVideos: number;
@@ -73,51 +73,21 @@ export default class YouTubeHelper {
 			try {
 				const { videos, totalVideos, nextPageToken } = await this.getLikedVideos(
 					_nextPageToken,
-					options.abortControllerSignal
+					options?.abortControllerSignal
 				);
+
 				_nextPageToken = nextPageToken;
 				likedVideos = likedVideos.concat(videos);
 				loadedVideos += videos.length;
 				_totalVideos = totalVideos;
-				options.setLikedVideos(likedVideos);
-				options.setAmountLoaded(loadedVideos);
-				options.setTotalResults(totalVideos);
-				await this.sleep(options.delay || 1000);
-			} catch (e) {
-				if (e instanceof Error) {
-					console.log(`Error: ${e.message}`);
+				options?.setLikedVideos(likedVideos);
+				options?.setAmountLoaded(loadedVideos);
+				options?.setTotalResults(totalVideos);
+
+				if (_nextPageToken) {
+					console.log("Sleeping");
+					await this.sleep(options?.delay || 1000);
 				}
-				break;
-			}
-		} while (_nextPageToken);
-
-		return {
-			videos: likedVideos,
-			loadedVideos: loadedVideos,
-			totalVideos: _totalVideos,
-		};
-	}
-
-	async getAllLikedVideos(abortControllerSignal?: AbortSignal): Promise<{
-		videos: LikedVideo[];
-		loadedVideos: number;
-		totalVideos: number;
-	}> {
-		let likedVideos: LikedVideo[] = [];
-		let loadedVideos = 0;
-		let _totalVideos = 0;
-		let _nextPageToken = "";
-		do {
-			try {
-				const { videos, totalVideos, nextPageToken } = await this.getLikedVideos(
-					_nextPageToken,
-					abortControllerSignal
-				);
-				_nextPageToken = nextPageToken;
-				likedVideos = likedVideos.concat(videos);
-				loadedVideos += videos.length;
-				_totalVideos = totalVideos;
-				await this.sleep(5000);
 			} catch (e) {
 				if (e instanceof Error) {
 					console.log(`Error: ${e.message}`);
