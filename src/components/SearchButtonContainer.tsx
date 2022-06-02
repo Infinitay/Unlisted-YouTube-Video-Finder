@@ -37,15 +37,16 @@ const SearchButtonContainer: React.FC<props> = ({
 	const handleGetLikedVideos = () => {
 		console.log("Getting liked videos...");
 		setSearching(true);
-		console.log(abortController);
 		const yt = new YouTubehelper(accessToken);
-		yt.getAllLikedVideosSync({
+		yt.getAllLikedVideos({
 			setLikedVideos,
 			setAmountLoaded,
 			setTotalResults,
 			abortControllerSignal: abortController.signal,
+		}).then((result) => {
+			console.log("Finished fetching all liked videos.");
+			setSearching(false);
 		});
-		// setSearching(false);
 	};
 
 	const handleStopFetchingLikes = () => {
