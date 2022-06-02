@@ -32,7 +32,7 @@ const SearchButtonContainer: React.FC<props> = ({
 	setFilteredVideos,
 }) => {
 	const [abortController, setAbortController] = React.useState<AbortController>(new AbortController());
-	const [searchingStatus, setSearchingStatus] = React.useState<SearchingStatus>(SearchingStatus.Finished);
+	const [searchingStatus, setSearchingStatus] = React.useState<SearchingStatus>(SearchingStatus.ColdStart);
 
 	const handleGetLikedVideos = () => {
 		console.log("Getting liked videos...");
@@ -74,7 +74,7 @@ const SearchButtonContainer: React.FC<props> = ({
 			case SearchingStatus.Finished:
 				return "Finished Fetching Videos";
 			default:
-				return "";
+				return "Get Liked Videos";
 		}
 	};
 
