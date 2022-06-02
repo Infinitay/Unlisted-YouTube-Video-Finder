@@ -70,11 +70,10 @@ const SearchButtonContainer: React.FC<props> = ({
 		if (timeout.current) clearTimeout(timeout.current);
 		if (isFiltering) {
 			timeout.current = setTimeout(() => {
-				setFilteredVideos(filterVideos({channelName: filterByChannel, videoTitle: filterByTitle, videos: likedVideos}));
+				setFilteredVideos(
+					filterVideos({ channelName: filterByChannel, videoTitle: filterByTitle, videos: likedVideos })
+				);
 			}, 750);
-		} else {
-			console.log("Clearing filter");
-			setFilteredVideos(likedVideos);
 		}
 	}, [filterByChannel, filterByTitle, isFiltering, likedVideos, setFilteredVideos]);
 
