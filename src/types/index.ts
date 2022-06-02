@@ -84,6 +84,7 @@ export interface LikedVideoChannel {
 
 // Enums are "objects" in JavaScript, so it will compare the actual values rather than memory addresses
 export enum SearchingStatus {
+	ColdStart,
 	Searching,
 	Paused,
 	Finished,
