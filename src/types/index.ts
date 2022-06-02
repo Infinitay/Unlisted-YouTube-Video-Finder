@@ -81,3 +81,10 @@ export interface LikedVideoChannel {
 	id: string;
 	name: string;
 }
+
+// Enums are "objects" in JavaScript, so it will compare the actual values rather than memory addresses
+export enum SearchingStatus {
+	Searching,
+	Paused,
+	Finished,
+}

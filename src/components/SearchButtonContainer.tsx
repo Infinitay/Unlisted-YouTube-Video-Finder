@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { LikedVideo } from "../types";
+import { LikedVideo, SearchingStatus } from "../types";
 import YouTubehelper from "../utils/YouTubeHelper";
 import { filterVideos } from "../utils/FilterHelper";
 interface props {
@@ -32,11 +32,11 @@ const SearchButtonContainer: React.FC<props> = ({
 	setFilteredVideos,
 }) => {
 	const [abortController, setAbortController] = React.useState<AbortController>(new AbortController());
-	const [searching, setSearching] = React.useState(false);
+	const [searchingStatus, setSearchingStatus] = React.useState<SearchingStatus>(SearchingStatus.Finished);
 
 	const handleGetLikedVideos = () => {
 		console.log("Getting liked videos...");
-		setSearching(true);
+		setSearchingStatus(SearchingStatus.Searching);
 		const yt = new YouTubehelper(accessToken);
 		yt.getAllLikedVideos({
 			setLikedVideos,
@@ -44,14 +44,18 @@ const SearchButtonContainer: React.FC<props> = ({
 			setTotalResults,
 			abortControllerSignal: abortController.signal,
 		}).then((result) => {
+			if (abortController.signal.aborted) {
+				console.log("Aborted fetching of videos.");
+				return;
+			}
 			console.log("Finished fetching all liked videos.");
-			setSearching(false);
+			setSearchingStatus(SearchingStatus.Finished);
 		});
 	};
 
 	const handleStopFetchingLikes = () => {
-		console.log("Stopped fetching liked videos.");
-		setSearching(false);
+		console.log("Pausing fetching liked videos.");
+		setSearchingStatus(SearchingStatus.Paused);
 		abortController.abort();
 		setAbortController(new AbortController());
 	};
@@ -61,11 +65,23 @@ const SearchButtonContainer: React.FC<props> = ({
 		setIsFiltering(!isFiltering);
 	};
 
+	const getSearchingStatusText = () => {
+		switch (searchingStatus) {
+			case SearchingStatus.Searching:
+				return "Pause Fetching Videos";
+			case SearchingStatus.Paused:
+				return "Resume Fetching Videos";
+			case SearchingStatus.Finished:
+				return "Finished Fetching Videos";
+			default:
+				return "";
+		}
+	};
+
 	// https://stackoverflow.com/a/71392984/7835042
 	// Since we don't need to update anything on the UI when the variable changes, we use #useRef
 	const timeout = React.useRef<ReturnType<typeof setTimeout>>();
 
-	//
 	useEffect(() => {
 		console.log(`isFiltering: ${isFiltering}`);
 		if (timeout.current) clearTimeout(timeout.current);
@@ -80,8 +96,12 @@ const SearchButtonContainer: React.FC<props> = ({
 
 	return (
 		<div>
-			<button id="getLikedVideos" onClick={!searching ? handleGetLikedVideos : handleStopFetchingLikes}>
-				{searching ? "Stop Fetching Videos" : "Get Liked Videos"}
+			<button
+				id="getLikedVideos"
+				onClick={searchingStatus !== SearchingStatus.Searching ? handleGetLikedVideos : handleStopFetchingLikes}
+				hidden={searchingStatus === SearchingStatus.Finished}
+			>
+				{getSearchingStatusText()}
 			</button>
 			<button id={isFiltering ? "toggleFilter--enabled" : "toggleFilter--disabled"} onClick={handleToggleFilter}>
 				Toggle Filter
