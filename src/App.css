@@ -69,8 +69,8 @@ button#toggleFilter--disabled {
 	all: revert;
 }
 
-/* @media (min-width: 1080px) {
+@media (max-width: 1440px) {
 	.videos {
 		max-width: 60vw;
 	}
-} */
+}
