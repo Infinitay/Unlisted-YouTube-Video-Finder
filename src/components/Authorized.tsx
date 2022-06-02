@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import Filters from "./Filters";
 import ResultContainer from "./ResultContainer";
-import { GoogleLogout } from "react-google-login";
+import { googleLogout } from "@react-oauth/google";
 import SearchButtonContainer from "./SearchButtonContainer";
 import { LikedVideo } from "../types";
-
-const CLIENT_ID = process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID || "";
 
 interface props {
 	accessToken: string;
@@ -29,9 +27,10 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 
 	const [filteredVideos, setFilteredVideos] = React.useState<LikedVideo[]>([]);
 
-	const onLogout = () => {
+	const logout = () => {
 		console.log("Logged out.");
 		setAccessToken("");
+		googleLogout();
 	};
 
 	return (
@@ -59,7 +58,7 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				isFiltering={isFiltering}
 			/>
 			<div id="signOut">
-				<GoogleLogout clientId={CLIENT_ID} buttonText="Sign out" onLogoutSuccess={onLogout} />
+				<button onClick={logout}>Sign Out</button>
 			</div>
 		</div>
 	);
