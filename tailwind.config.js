@@ -7,8 +7,16 @@ module.exports = {
 			pattern: /./
 		},
 	],
-	plugins: [require("daisyui")],
+	theme: {
+		extend: {
+			fontFamily: {
+				roboto: ["Roboto", "sans-serif"],
+			},
+		},
+	},
+	scrollbar: ["rounded"],
+	plugins: [require("daisyui"), require("tailwind-scrollbar-daisyui")],
 	daisyui: {
-		themes: ["night"],
+		themes: ["night"]
 	}
 }
