@@ -1,5 +1,6 @@
 import React from "react";
 import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
+import { Button } from "react-daisyui";
 
 interface props {
 	setAccessToken: React.Dispatch<React.SetStateAction<string>>;
@@ -27,7 +28,7 @@ const GoogleLoginButton: React.FC<props> = ({ setAccessToken }) => {
 
 	return (
 		<div>
-			<button onClick={() => login()}>Sign in with Google</button>
+			<Button color="secondary" onClick={() => login()}>Sign in with Google</Button>
 		</div>
 	);
 };

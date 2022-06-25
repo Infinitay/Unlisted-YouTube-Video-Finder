@@ -8,14 +8,14 @@ function App() {
 
 	return (
 		<div className="App">
-			<div className="header">Unlisted YouTube Video Finder</div>
-			<div className="description">
+			<h1 className="text-4xl font-roboto">Unlisted YouTube Video Finder</h1>
+			<h3>
 				Helps find unlisted videos based on the specified filters by parsing your liked videos.
-			</div>
+			</h3>
 			{process.env.REACT_APP_DEV_MODE === "true" && (
 				<>
 					<br />
-					App Access Token: "{accessToken}"
+					<h3>App Access Token: "{accessToken}"</h3>
 				</>
 			)}
 

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { LikedVideo, SearchingStatus } from "../types";
 import YouTubehelper from "../utils/YouTubeHelper";
 import { filterVideos } from "../utils/FilterHelper";
+import { Button } from "react-daisyui";
 interface props {
 	accessToken: string;
 	likedVideos: LikedVideo[];
@@ -13,7 +14,6 @@ interface props {
 	filterByChannel: string;
 	filterByTitle: string;
 	isFiltering: boolean;
-	setIsFiltering: React.Dispatch<React.SetStateAction<boolean>>;
 	setFilteredVideos: React.Dispatch<React.SetStateAction<LikedVideo[]>>;
 }
 
@@ -28,7 +28,6 @@ const SearchButtonContainer: React.FC<props> = ({
 	filterByChannel,
 	filterByTitle,
 	isFiltering,
-	setIsFiltering,
 	setFilteredVideos,
 }) => {
 	const [abortController, setAbortController] = React.useState<AbortController>(new AbortController());
@@ -58,11 +57,6 @@ const SearchButtonContainer: React.FC<props> = ({
 		setSearchingStatus(SearchingStatus.Paused);
 		abortController.abort();
 		setAbortController(new AbortController());
-	};
-
-	const handleToggleFilter = () => {
-		console.log(`isFiltering State: ${isFiltering}`);
-		setIsFiltering(!isFiltering);
 	};
 
 	const getSearchingStatusText = () => {
@@ -96,16 +90,13 @@ const SearchButtonContainer: React.FC<props> = ({
 
 	return (
 		<div>
-			<button
+			<Button
 				id="getLikedVideos"
 				onClick={searchingStatus !== SearchingStatus.Searching ? handleGetLikedVideos : handleStopFetchingLikes}
 				hidden={searchingStatus === SearchingStatus.Finished}
 			>
 				{getSearchingStatusText()}
-			</button>
-			<button id={isFiltering ? "toggleFilter--enabled" : "toggleFilter--disabled"} onClick={handleToggleFilter}>
-				Toggle Filter
-			</button>
+			</Button>
 		</div>
 	);
 };
