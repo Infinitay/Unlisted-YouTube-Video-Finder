@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
 	display: flex;
 	flex-direction: column;
@@ -72,5 +78,15 @@ button#toggleFilter--disabled {
 @media (max-width: 1440px) {
 	.videos {
 		max-width: 60vw;
+	}
+}
+
+@layer base {
+	h1 {
+		@apply text-xl font-roboto
+	}
+
+	h3 {
+		@apply text-xl font-roboto font-[100]
 	}
 }
