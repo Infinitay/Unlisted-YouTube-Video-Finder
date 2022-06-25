@@ -40,7 +40,7 @@ const ResultsContainer: React.FC<props> = ({
 						: `Found ${filteredVideos.length} out of ${totalResults} videos that match your filter(s)`}
 				</div>
 			)}
-			<div className="videos">
+			<div className="videos scrollbar scrollbar-thumb-rounded scrollbar-thumb-base-content scrollbar-track-base-200">
 				{isFiltering
 					? filteredVideos.map((video) => <VideoResult key={video.id} likedVideo={video} />)
 					: likedVideos.map((video) => <VideoResult key={video.id} likedVideo={video} />)}

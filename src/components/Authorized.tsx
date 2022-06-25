@@ -4,6 +4,7 @@ import ResultContainer from "./ResultContainer";
 import { googleLogout } from "@react-oauth/google";
 import SearchButtonContainer from "./SearchButtonContainer";
 import { LikedVideo } from "../types";
+import { Button } from "react-daisyui";
 
 interface props {
 	accessToken: string;
@@ -35,7 +36,7 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 
 	return (
 		<div>
-			<Filters setFilterByChannel={setFilterByChannel} setFilterByTitle={setFilterByTitle} />
+			<Filters setFilterByChannel={setFilterByChannel} setFilterByTitle={setFilterByTitle} setIsFiltering={setIsFiltering}/>
 			<SearchButtonContainer
 				accessToken={accessToken}
 				likedVideos={likedVideos}
@@ -47,7 +48,6 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				filterByChannel={filterByChannel}
 				filterByTitle={filterByTitle}
 				isFiltering={isFiltering}
-				setIsFiltering={setIsFiltering}
 				setFilteredVideos={setFilteredVideos}
 			/>
 			<ResultContainer
@@ -58,7 +58,7 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				isFiltering={isFiltering}
 			/>
 			<div id="signOut">
-				<button onClick={logout}>Sign Out</button>
+				<Button color="secondary" onClick={logout}>Sign Out</Button>
 			</div>
 		</div>
 	);
