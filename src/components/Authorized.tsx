@@ -36,20 +36,28 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 
 	return (
 		<div>
-			<Filters setFilterByChannel={setFilterByChannel} setFilterByTitle={setFilterByTitle} setIsFiltering={setIsFiltering}/>
-			<SearchButtonContainer
-				accessToken={accessToken}
-				likedVideos={likedVideos}
-				setLikedVideos={setLikedVideos}
-				amountLoaded={amountLoaded}
-				setAmountLoaded={setAmountLoaded}
-				totalResults={totalResults}
-				setTotalResults={setTotalResults}
-				filterByChannel={filterByChannel}
-				filterByTitle={filterByTitle}
-				isFiltering={isFiltering}
-				setFilteredVideos={setFilteredVideos}
-			/>
+			<div className="inline-flex py-3 flex-row space-x-5 items-center justify-evenly">
+				<SearchButtonContainer
+					accessToken={accessToken}
+					likedVideos={likedVideos}
+					setLikedVideos={setLikedVideos}
+					amountLoaded={amountLoaded}
+					setAmountLoaded={setAmountLoaded}
+					totalResults={totalResults}
+					setTotalResults={setTotalResults}
+					filterByChannel={filterByChannel}
+					filterByTitle={filterByTitle}
+					isFiltering={isFiltering}
+					setFilteredVideos={setFilteredVideos}
+				/>
+				{likedVideos.length > 0 && (
+					<Filters
+						setFilterByChannel={setFilterByChannel}
+						setFilterByTitle={setFilterByTitle}
+						setIsFiltering={setIsFiltering}
+					/>
+				)}
+			</div>
 			<ResultContainer
 				likedVideos={likedVideos}
 				amountLoaded={amountLoaded}
@@ -57,8 +65,10 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				filteredVideos={filteredVideos}
 				isFiltering={isFiltering}
 			/>
-			<div id="signOut">
-				<Button color="secondary" onClick={logout}>Sign Out</Button>
+			<div className="inline-flex" id="signOut">
+				<Button color="secondary" onClick={logout}>
+					Sign Out
+				</Button>
 			</div>
 		</div>
 	);

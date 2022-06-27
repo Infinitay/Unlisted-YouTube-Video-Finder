@@ -89,15 +89,13 @@ const SearchButtonContainer: React.FC<props> = ({
 	}, [filterByChannel, filterByTitle, isFiltering, likedVideos, setFilteredVideos]);
 
 	return (
-		<div>
-			<Button
-				id="getLikedVideos"
-				onClick={searchingStatus !== SearchingStatus.Searching ? handleGetLikedVideos : handleStopFetchingLikes}
-				hidden={searchingStatus === SearchingStatus.Finished}
-			>
-				{getSearchingStatusText()}
-			</Button>
-		</div>
+		<Button
+			id="getLikedVideos"
+			onClick={searchingStatus !== SearchingStatus.Searching ? handleGetLikedVideos : handleStopFetchingLikes}
+			hidden={searchingStatus === SearchingStatus.Finished}
+		>
+			{getSearchingStatusText()}
+		</Button>
 	);
 };
 

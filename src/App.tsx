@@ -7,23 +7,28 @@ function App() {
 	const [accessToken, setAccessToken] = useState<string>("");
 
 	return (
-		<div className="App">
-			<h1 className="text-4xl font-roboto">Unlisted YouTube Video Finder</h1>
-			<h3>
-				Helps find unlisted videos based on the specified filters by parsing your liked videos.
-			</h3>
-			{process.env.REACT_APP_DEV_MODE === "true" && (
-				<>
-					<br />
-					<h3>App Access Token: "{accessToken}"</h3>
-				</>
-			)}
-
-			{accessToken ? (
-				<Authorized accessToken={accessToken} setAccessToken={setAccessToken} />
-			) : (
-				<Authorize setAccessToken={setAccessToken} />
-			)}
+		<div className={`flex h-screen justify-center ${accessToken ? "text-center items-start py-3" : "items-center"}`}>
+			<div>
+				<h1 className={`font-roboto ${accessToken ? "lg:text-4xl " : "text-2xl lg:text-7xl"}`}>
+					Unlisted YouTube Video Finder
+				</h1>
+				{/* Not sure if this is the proper way to add padding WITHOUT increasing the sizing of the parent div, but it works
+					Other methods I tried did not help and still increased the size such as box-border */}
+				<h3 className={`italic pb-5 ${accessToken ? "" : "text-xs pl-6 -mr-6 lg:text-3xl w-5/6 lg:pl-24 lg:-mr-24"}`}>
+					Find unlisted videos based on the specified filters by parsing your liked videos.
+				</h3>
+				{process.env.REACT_APP_DEV_MODE === "true" && (
+					<>
+						<br />
+						<h3>App Access Token: "{accessToken}"</h3>
+					</>
+				)}
+				{accessToken ? (
+					<Authorized accessToken={accessToken} setAccessToken={setAccessToken} />
+				) : (
+					<Authorize setAccessToken={setAccessToken} />
+				)}
+			</div>
 		</div>
 	);
 }
