@@ -10,7 +10,7 @@ interface props {
 
 const Authorize: React.FC<props> = ({ setAccessToken }) => {
 	return (
-		<div id="authorizeButton">
+		<div className="text-center" id="authorizeButton">
 			<GoogleOAuthProvider clientId={CLIENT_ID}>
 				<GoogleLoginButton setAccessToken={setAccessToken}/>
 			</GoogleOAuthProvider>

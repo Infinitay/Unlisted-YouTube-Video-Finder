@@ -12,6 +12,22 @@ module.exports = {
 			fontFamily: {
 				roboto: ["Roboto", "sans-serif"],
 			},
+			screens: {
+				mx2xl: { 'max': '1535px' },
+				// => @media (max-width: 1535px) { ... }
+
+				mxxl: { 'max': '1279px' },
+				// => @media (max-width: 1279px) { ... }
+
+				mxlg: { 'max': '1023px' },
+				// => @media (max-width: 1023px) { ... }
+
+				mxmd: { 'max': '767px' },
+				// => @media (max-width: 767px) { ... }
+
+				mxsm: { 'max': '639px' },
+				// => @media (max-width: 639px) { ... }
+			}
 		},
 	},
 	scrollbar: ["rounded"],

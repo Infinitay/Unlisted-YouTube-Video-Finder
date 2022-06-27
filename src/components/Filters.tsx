@@ -13,22 +13,20 @@ const Filters: React.FC<props> = ({ setFilterByChannel, setFilterByTitle, setIsF
 	};
 
 	return (
-		<div>
-			<div className="filters flex space-x-5 items-center justify-center">
-				<Input
-					id="channelName"
-					type="text"
-					onChange={(event) => setFilterByChannel(event.target.value)}
-					placeholder="Filter by channel name"
-				/>
-				<Input
-					id="videoTitle"
-					type="text"
-					onChange={(event) => setFilterByTitle(event.target.value)}
-					placeholder="Filter by video title"
-				/>
-				<Toggle onChange={handleToggleFilter} size="lg" />
-			</div>
+		<div className="flex flex-row space-x-5 items-center justify-evenly">
+			<Input
+				id="channelName"
+				type="text"
+				onChange={(event) => setFilterByChannel(event.target.value)}
+				placeholder="Filter by channel name"
+			/>
+			<Input
+				id="videoTitle"
+				type="text"
+				onChange={(event) => setFilterByTitle(event.target.value)}
+				placeholder="Filter by video title"
+			/>
+			<Toggle onChange={handleToggleFilter} size="lg" />
 		</div>
 	);
 };
