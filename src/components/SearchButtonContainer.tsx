@@ -15,6 +15,8 @@ interface props {
 	filterByTitle: string;
 	isFiltering: boolean;
 	setFilteredVideos: React.Dispatch<React.SetStateAction<LikedVideo[]>>;
+	searchingStatus: SearchingStatus;
+	setSearchingStatus: React.Dispatch<React.SetStateAction<SearchingStatus>>;
 }
 
 const SearchButtonContainer: React.FC<props> = ({
@@ -29,9 +31,10 @@ const SearchButtonContainer: React.FC<props> = ({
 	filterByTitle,
 	isFiltering,
 	setFilteredVideos,
+	searchingStatus,
+	setSearchingStatus,
 }) => {
 	const [abortController, setAbortController] = React.useState<AbortController>(new AbortController());
-	const [searchingStatus, setSearchingStatus] = React.useState<SearchingStatus>(SearchingStatus.ColdStart);
 	const [searchPageToken, setSearchPageToken] = React.useState<string>(""); // Used when the user pauses the search and resumes it later
 
 	const handleGetLikedVideos = () => {
@@ -86,7 +89,6 @@ const SearchButtonContainer: React.FC<props> = ({
 	const timeout = React.useRef<ReturnType<typeof setTimeout>>();
 
 	useEffect(() => {
-		console.log(`isFiltering: ${isFiltering}`);
 		if (timeout.current) clearTimeout(timeout.current);
 		if (isFiltering) {
 			timeout.current = setTimeout(() => {
@@ -94,6 +96,10 @@ const SearchButtonContainer: React.FC<props> = ({
 			}, 750);
 		}
 	}, [filterByChannel, filterByTitle, isFiltering, likedVideos, setFilteredVideos]);
+
+	useEffect(() => {
+		if (searchingStatus === SearchingStatus.ColdStart) setSearchPageToken("");
+	}, [searchingStatus]);
 
 	return (
 		<Button
