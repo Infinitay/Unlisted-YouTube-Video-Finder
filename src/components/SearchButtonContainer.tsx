@@ -32,24 +32,33 @@ const SearchButtonContainer: React.FC<props> = ({
 }) => {
 	const [abortController, setAbortController] = React.useState<AbortController>(new AbortController());
 	const [searchingStatus, setSearchingStatus] = React.useState<SearchingStatus>(SearchingStatus.ColdStart);
+	const [searchPageToken, setSearchPageToken] = React.useState<string>(""); // Used when the user pauses the search and resumes it later
 
 	const handleGetLikedVideos = () => {
 		console.log("Getting liked videos...");
 		setSearchingStatus(SearchingStatus.Searching);
 		const yt = new YouTubehelper(accessToken);
 		yt.getAllLikedVideos({
+			...(searchPageToken && { previousVideos: likedVideos }),
 			setLikedVideos,
 			setAmountLoaded,
 			setTotalResults,
+			...(searchPageToken && { pageToken: searchPageToken }),
 			abortControllerSignal: abortController.signal,
-		}).then((result) => {
-			if (abortController.signal.aborted) {
-				console.log("Aborted fetching of videos.");
-				return;
-			}
-			console.log("Finished fetching all liked videos.");
-			setSearchingStatus(SearchingStatus.Finished);
-		});
+		})
+			.then((result) => {
+				if (abortController.signal.aborted) {
+					console.log("Aborted fetching of videos.");
+					setSearchPageToken(result.nextPageToken!);
+					return;
+				}
+				console.log("Finished fetching all liked videos.");
+				setSearchingStatus(SearchingStatus.Finished);
+			})
+			.catch((error) => {
+				console.log("Error fetching liked videos.");
+				console.log(error);
+			});
 	};
 
 	const handleStopFetchingLikes = () => {
@@ -81,9 +90,7 @@ const SearchButtonContainer: React.FC<props> = ({
 		if (timeout.current) clearTimeout(timeout.current);
 		if (isFiltering) {
 			timeout.current = setTimeout(() => {
-				setFilteredVideos(
-					filterVideos({ channelName: filterByChannel, videoTitle: filterByTitle, videos: likedVideos })
-				);
+				setFilteredVideos(filterVideos({ channelName: filterByChannel, videoTitle: filterByTitle, videos: likedVideos }));
 			}, 750);
 		}
 	}, [filterByChannel, filterByTitle, isFiltering, likedVideos, setFilteredVideos]);
@@ -92,7 +99,7 @@ const SearchButtonContainer: React.FC<props> = ({
 		<Button
 			id="getLikedVideos"
 			onClick={searchingStatus !== SearchingStatus.Searching ? handleGetLikedVideos : handleStopFetchingLikes}
-			hidden={searchingStatus === SearchingStatus.Finished}
+			disabled={searchingStatus === SearchingStatus.Finished}
 		>
 			{getSearchingStatusText()}
 		</Button>

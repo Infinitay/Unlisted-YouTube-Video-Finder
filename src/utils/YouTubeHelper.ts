@@ -2,9 +2,11 @@ import axios from "axios";
 import { YouTubeListResult, LikedVideo } from "../types";
 
 interface GetAllLikedVideosSync {
+	previousVideos?: LikedVideo[];
 	setLikedVideos: React.Dispatch<React.SetStateAction<LikedVideo[]>>;
 	setAmountLoaded: React.Dispatch<React.SetStateAction<number>>;
 	setTotalResults: React.Dispatch<React.SetStateAction<number>>;
+	pageToken?: string;
 	abortControllerSignal?: AbortSignal;
 	delay?: number;
 }
@@ -64,17 +66,21 @@ export default class YouTubeHelper {
 		videos: LikedVideo[];
 		loadedVideos: number;
 		totalVideos: number;
+		nextPageToken?: string;
 	}> {
 		let likedVideos: LikedVideo[] = [];
 		let loadedVideos = 0;
 		let _totalVideos = 0;
-		let _nextPageToken = "";
+		let _nextPageToken = options?.pageToken || "";
+
+		if (_nextPageToken) {
+			likedVideos = options?.previousVideos || [];
+			loadedVideos = likedVideos.length;
+		}
+
 		do {
 			try {
-				const { videos, totalVideos, nextPageToken } = await this.getLikedVideos(
-					_nextPageToken,
-					options?.abortControllerSignal
-				);
+				const { videos, totalVideos, nextPageToken } = await this.getLikedVideos(_nextPageToken, options?.abortControllerSignal);
 
 				_nextPageToken = nextPageToken;
 				likedVideos = likedVideos.concat(videos);
@@ -100,6 +106,7 @@ export default class YouTubeHelper {
 			videos: likedVideos,
 			loadedVideos: loadedVideos,
 			totalVideos: _totalVideos,
+			nextPageToken: _nextPageToken,
 		};
 	}
 
