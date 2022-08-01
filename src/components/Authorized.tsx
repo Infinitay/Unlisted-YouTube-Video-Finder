@@ -3,7 +3,7 @@ import Filters from "./Filters";
 import ResultContainer from "./ResultContainer";
 import { googleLogout } from "@react-oauth/google";
 import SearchButtonContainer from "./SearchButtonContainer";
-import { LikedVideo } from "../types";
+import { LikedVideo, SearchingStatus } from "../types";
 import { Button } from "react-daisyui";
 
 interface props {
@@ -28,10 +28,25 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 
 	const [filteredVideos, setFilteredVideos] = React.useState<LikedVideo[]>([]);
 
+	const [searchingStatus, setSearchingStatus] = React.useState<SearchingStatus>(SearchingStatus.ColdStart);
+
 	const logout = () => {
 		console.log("Logged out.");
 		setAccessToken("");
 		googleLogout();
+	};
+
+	const resetState = () => {
+		console.log("Resetting videos and filters");
+		// Keep in mind doing this will cause the SearchButtonContainer#useEffect that uses the respective variables as dependencies will run
+		setLikedVideos([]);
+		setAmountLoaded(0);
+		setTotalResults(0);
+		setFilteredVideos([]);
+		setFilterByChannel("");
+		setFilterByTitle("");
+		setIsFiltering(false);
+		setSearchingStatus(SearchingStatus.ColdStart);
 	};
 
 	return (
@@ -49,13 +64,11 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 					filterByTitle={filterByTitle}
 					isFiltering={isFiltering}
 					setFilteredVideos={setFilteredVideos}
+					searchingStatus={searchingStatus}
+					setSearchingStatus={setSearchingStatus}
 				/>
 				{likedVideos.length > 0 && (
-					<Filters
-						setFilterByChannel={setFilterByChannel}
-						setFilterByTitle={setFilterByTitle}
-						setIsFiltering={setIsFiltering}
-					/>
+					<Filters setFilterByChannel={setFilterByChannel} setFilterByTitle={setFilterByTitle} setIsFiltering={setIsFiltering} />
 				)}
 			</div>
 			<ResultContainer
@@ -65,9 +78,12 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				filteredVideos={filteredVideos}
 				isFiltering={isFiltering}
 			/>
-			<div className="inline-flex" id="signOut">
+			<div className="inline-flex flex-row space-x-5 items-center justify-evenly" id="signOut">
 				<Button color="secondary" onClick={logout}>
 					Sign Out
+				</Button>
+				<Button color="secondary" onClick={resetState}>
+					Reset All
 				</Button>
 			</div>
 		</div>
