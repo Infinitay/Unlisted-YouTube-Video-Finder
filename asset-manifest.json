@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Unlisted-YouTube-Video-Finder/static/css/main.e47ab8ee.css",
-    "main.js": "/Unlisted-YouTube-Video-Finder/static/js/main.b037696a.js",
+    "main.css": "/Unlisted-YouTube-Video-Finder/static/css/main.fc25c27e.css",
+    "main.js": "/Unlisted-YouTube-Video-Finder/static/js/main.93430010.js",
     "index.html": "/Unlisted-YouTube-Video-Finder/index.html",
-    "main.e47ab8ee.css.map": "/Unlisted-YouTube-Video-Finder/static/css/main.e47ab8ee.css.map",
-    "main.b037696a.js.map": "/Unlisted-YouTube-Video-Finder/static/js/main.b037696a.js.map"
+    "main.fc25c27e.css.map": "/Unlisted-YouTube-Video-Finder/static/css/main.fc25c27e.css.map",
+    "main.93430010.js.map": "/Unlisted-YouTube-Video-Finder/static/js/main.93430010.js.map"
   },
   "entrypoints": [
-    "static/css/main.e47ab8ee.css",
-    "static/js/main.b037696a.js"
+    "static/css/main.fc25c27e.css",
+    "static/js/main.93430010.js"
   ]
 }
