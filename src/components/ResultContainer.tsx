@@ -34,7 +34,7 @@ const ResultsContainer: React.FC<props> = ({
 	return (
 		<div className="results-container">
 			{totalResults > 0 && (
-				<div>
+				<div className="mb-3">
 					{!isFiltering
 						? `Showing ${amountLoaded} of ${totalResults} results`
 						: `Found ${filteredVideos.length} out of ${totalResults} videos that match your filter(s)`}
