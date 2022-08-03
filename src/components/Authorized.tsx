@@ -51,7 +51,7 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 
 	return (
 		<div>
-			<div className="inline-flex py-3 flex-row space-x-5 items-center justify-evenly">
+			<div className="inline-flex my-3 flex-row space-x-5 items-center justify-evenly">
 				<SearchButtonContainer
 					accessToken={accessToken}
 					likedVideos={likedVideos}
@@ -78,7 +78,7 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				filteredVideos={filteredVideos}
 				isFiltering={isFiltering}
 			/>
-			<div className="inline-flex py-3 flex-row space-x-5 items-center justify-evenly">
+			<div className="inline-flex my-3 flex-row space-x-5 items-center justify-evenly">
 				<Button color="secondary" onClick={logout}>
 					Sign Out
 				</Button>

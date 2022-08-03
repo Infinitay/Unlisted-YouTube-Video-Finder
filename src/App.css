@@ -14,7 +14,7 @@
 .videos {
 	overflow-y: scroll;
 	max-width: 40vw;
-	max-height: 78vh;
+	max-height: 76vh;
 	/* 	border-radius: 3px;
 	border-color: black;
 	border-style: solid; */
@@ -40,7 +40,15 @@
 	flex-direction: row;
 	align-items: flex-start;
 	/* Use margin over padding when placing the element in relation to another */
-	margin: 10px;
+	margin: 1rem 0 1rem 0;
+}
+
+.video-result:first-child {
+	margin-top: unset;
+}
+
+.video-result:last-child {
+	margin-bottom: unset;
 }
 
 /* Change all .video-result children to the same cursor style as a hyperlink */
