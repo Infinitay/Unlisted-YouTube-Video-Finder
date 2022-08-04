@@ -26,7 +26,7 @@ function App() {
 				</div>
 			</div>
 			{/* "sticky top-[100vh] text-center" or "mt-auto text-center" */}
-			<div className="mt-auto text-center"> 
+			<div className="mt-auto text-center">
 				<a href="https://github.com/Infinitay/Unlisted-YouTube-Video-Finder/blob/master/PRIVACY_POLICY.md">Privacy Policy</a>
 			</div>
 		</div>

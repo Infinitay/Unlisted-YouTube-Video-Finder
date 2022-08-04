@@ -21,6 +21,7 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 	const [filterByChannel, setFilterByChannel] = React.useState("");
 	const [filterByTitle, setFilterByTitle] = React.useState("");
 	const [isFiltering, setIsFiltering] = React.useState(false);
+	const [showOnlyUnlisted, setShowOnlyUnlisted] = React.useState(false);
 
 	const [likedVideos, setLikedVideos] = React.useState<LikedVideo[]>([]);
 	const [amountLoaded, setAmountLoaded] = React.useState<number>(0);
@@ -46,6 +47,7 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 		setFilterByChannel("");
 		setFilterByTitle("");
 		setIsFiltering(false);
+		setShowOnlyUnlisted(false);
 		setSearchingStatus(SearchingStatus.ColdStart);
 	};
 
@@ -64,11 +66,18 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 					filterByTitle={filterByTitle}
 					isFiltering={isFiltering}
 					setFilteredVideos={setFilteredVideos}
+					showOnlyUnlisted={showOnlyUnlisted}
 					searchingStatus={searchingStatus}
 					setSearchingStatus={setSearchingStatus}
 				/>
 				{likedVideos.length > 0 && (
-					<Filters setFilterByChannel={setFilterByChannel} setFilterByTitle={setFilterByTitle} setIsFiltering={setIsFiltering} />
+					<Filters
+						setFilterByChannel={setFilterByChannel}
+						setFilterByTitle={setFilterByTitle}
+						setIsFiltering={setIsFiltering}
+						showOnlyUnlisted={showOnlyUnlisted}
+						setShowOnlyUnlisted={setShowOnlyUnlisted}
+					/>
 				)}
 			</div>
 			<ResultContainer
@@ -77,6 +86,7 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				totalResults={totalResults}
 				filteredVideos={filteredVideos}
 				isFiltering={isFiltering}
+				showOnlyUnlisted={showOnlyUnlisted}
 			/>
 			<div className="inline-flex my-3 flex-row space-x-5 items-center justify-evenly">
 				<Button color="secondary" onClick={logout}>

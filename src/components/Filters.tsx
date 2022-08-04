@@ -1,15 +1,16 @@
 import React from "react";
 import { Button, Input, Toggle, Tooltip } from "react-daisyui";
 import { ReactComponent as EyeOffIcon } from "../assets/svgs/eye-off.svg";
+
 interface props {
 	setFilterByChannel: React.Dispatch<React.SetStateAction<string>>;
 	setFilterByTitle: React.Dispatch<React.SetStateAction<string>>;
 	setIsFiltering: React.Dispatch<React.SetStateAction<boolean>>;
+	showOnlyUnlisted: boolean;
+	setShowOnlyUnlisted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Filters: React.FC<props> = ({ setFilterByChannel, setFilterByTitle, setIsFiltering }) => {
-	const [showOnlyUnlisted, setShowOnlyUnlisted] = React.useState(false);
-
+const Filters: React.FC<props> = ({ setFilterByChannel, setFilterByTitle, setIsFiltering, showOnlyUnlisted, setShowOnlyUnlisted }) => {
 	const handleToggleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setIsFiltering(event.target.checked);
 	};

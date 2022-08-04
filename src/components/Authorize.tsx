@@ -12,7 +12,7 @@ const Authorize: React.FC<props> = ({ setAccessToken }) => {
 	return (
 		<div className="text-center" id="authorizeButton">
 			<GoogleOAuthProvider clientId={CLIENT_ID}>
-				<GoogleLoginButton setAccessToken={setAccessToken}/>
+				<GoogleLoginButton setAccessToken={setAccessToken} />
 			</GoogleOAuthProvider>
 		</div>
 	);
