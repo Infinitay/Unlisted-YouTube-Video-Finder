@@ -1,5 +1,7 @@
 import React from "react";
-
+import { ReactComponent as EyeIcon } from "../assets/svgs/eye.svg";
+import { ReactComponent as EyeOffIcon } from "../assets/svgs/eye-off.svg";
+import { Tooltip } from "react-daisyui";
 interface LikedVideo {
 	id: string;
 	title: string;
@@ -34,20 +36,22 @@ const VideoResult: React.FC<props> = ({ likedVideo }) => {
 	};
 	return (
 		<div className="video-result" key={likedVideo.id}>
-			<img
-				className="video-result-thumbnail"
-				onClick={() => openURL(getYouTubeVideoLink(likedVideo.id))}
-				src={likedVideo.thumbnail}
-				alt={likedVideo.title}
-			/>
+			<div className="video-result-thumbnail-container">
+				<img
+					className="video-result-thumbnail"
+					onClick={() => openURL(getYouTubeVideoLink(likedVideo.id))}
+					src={likedVideo.thumbnail}
+					alt={likedVideo.title}
+				/>
+				<Tooltip message={likedVideo.privacyStatus} className="video-result-privacy-status-tooltip" position="top">
+					{likedVideo.privacyStatus === "public" ? <EyeIcon className="video-result-privacy-status" /> : <EyeOffIcon className="video-result-privacy-status" />}
+				</Tooltip>
+			</div>
 			<div className="video-result-info">
 				<div className="video-result-title" onClick={() => openURL(getYouTubeVideoLink(likedVideo.id))}>
 					{likedVideo.title}
 				</div>
-				<div
-					className="video-result-channel"
-					onClick={() => openURL(getYouTubeChannelLink(likedVideo.channel.id))}
-				>
+				<div className="video-result-channel" onClick={() => openURL(getYouTubeChannelLink(likedVideo.channel.id))}>
 					{likedVideo.channel.name}
 				</div>
 			</div>

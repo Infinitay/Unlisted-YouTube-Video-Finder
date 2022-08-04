@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -56,12 +56,42 @@
 	cursor: pointer;
 }
 
+.video-result-thumbnail-container {
+	position: relative;
+}
+
 .video-result-thumbnail {
 	/* https://calculateaspectratio.com/16-9-calculator */
 	min-width: 360px;
 	min-height: 203px;
 	width: 360px;
 	height: 203px;
+	/* Corner-cut https://css-generators.com/custom-corners/ */
+	--mask: radial-gradient(2.5rem at 100% 100%, rgba(0, 0, 0, 0) 66%, rgb(0, 0, 0)) 100% 100%/100% 100% no-repeat;
+	-webkit-mask: var(--mask);
+	mask: var(--mask);
+}
+
+.video-result-privacy-status {
+	width: 2rem;
+	height: auto;
+	/* transform: rotate(-45deg); */
+
+	/* Place the image at the bottom right of the corner of the previous element */
+	position: relative;
+	bottom: -2px;
+	right: -4px;
+}
+
+/* Need to do this to fix tool-tip alignment */
+.video-result-privacy-status:after {
+	position: absolute;
+}
+
+.video-result-privacy-status-tooltip {
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
 
 .video-result-info {
@@ -83,6 +113,23 @@ button#toggleFilter--disabled {
 	all: revert;
 }
 
+.unlisted-button-enabled {
+	color: theme("colors.neutral-content");
+	opacity: 30%;
+	transition-property: color, opacity;
+	transition: 0.25s ease;
+}
+
+.unlisted-button-disabled {
+	transition-property: color, opacity;
+	transition: 0.25s ease;
+}
+
+.unlisted-button-enabled:hover,
+.unlisted-button-disabled:hover {
+	background-color: unset;
+}
+
 @media (max-width: 1440px) {
 	.videos {
 		max-width: 60vw;
@@ -99,10 +146,10 @@ button#toggleFilter--disabled {
 
 @layer base {
 	h1 {
-		@apply text-xl font-roboto
+		@apply text-xl font-roboto;
 	}
 
 	h3 {
-		@apply text-xl font-roboto font-[100]
+		@apply text-xl font-roboto font-[100];
 	}
 }
