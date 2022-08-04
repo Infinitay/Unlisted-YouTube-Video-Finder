@@ -114,15 +114,15 @@ button#toggleFilter--disabled {
 }
 
 .unlisted-button-enabled {
-	color: theme("colors.neutral-content");
-	opacity: 30%;
 	transition-property: color, opacity;
-	transition: 0.25s ease;
+	transition: 0.3s ease;
 }
 
 .unlisted-button-disabled {
+	color: theme("colors.neutral-content");
+	opacity: 30%;
 	transition-property: color, opacity;
-	transition: 0.25s ease;
+	transition: 0.3s ease;
 }
 
 .unlisted-button-enabled:hover,

@@ -49,9 +49,12 @@ export interface Default {
 	height: number;
 }
 
+// https://developers.google.com/youtube/v3/docs/videos#status.privacyStatus
+export type PrivacyStatus = "private" | "public" | "unlisted";
+
 export interface Status {
 	uploadStatus: string;
-	privacyStatus: string;
+	privacyStatus: PrivacyStatus;
 	license: string;
 	embeddable: boolean;
 	publicStatsViewable: boolean;
@@ -72,7 +75,7 @@ export interface LikedVideo {
 	title: string;
 	localizedTitle: string;
 	publishedAt: Date;
-	privacyStatus: string; // "public" or "unlisted" or "private", although I don't think "private" is possible
+	privacyStatus: PrivacyStatus;
 	thumbnail: string;
 	channel: LikedVideoChannel;
 }

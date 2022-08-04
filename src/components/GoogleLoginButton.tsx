@@ -28,7 +28,9 @@ const GoogleLoginButton: React.FC<props> = ({ setAccessToken }) => {
 
 	return (
 		<div>
-			<Button color="secondary" onClick={() => login()}>Sign in with Google</Button>
+			<Button color="secondary" onClick={() => login()}>
+				Sign in with Google
+			</Button>
 		</div>
 	);
 };

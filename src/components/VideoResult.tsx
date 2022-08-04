@@ -2,20 +2,7 @@ import React from "react";
 import { ReactComponent as EyeIcon } from "../assets/svgs/eye.svg";
 import { ReactComponent as EyeOffIcon } from "../assets/svgs/eye-off.svg";
 import { Tooltip } from "react-daisyui";
-interface LikedVideo {
-	id: string;
-	title: string;
-	localizedTitle: string;
-	publishedAt: Date;
-	privacyStatus: string; // "public" or "unlisted" or "private", although I don't think "private" is possible
-	thumbnail: string;
-	channel: LikedVideoChannel;
-}
-
-interface LikedVideoChannel {
-	id: string;
-	name: string;
-}
+import { LikedVideo } from "../types";
 
 interface props {
 	likedVideo: LikedVideo;
@@ -44,7 +31,11 @@ const VideoResult: React.FC<props> = ({ likedVideo }) => {
 					alt={likedVideo.title}
 				/>
 				<Tooltip message={likedVideo.privacyStatus} className="video-result-privacy-status-tooltip" position="top">
-					{likedVideo.privacyStatus === "public" ? <EyeIcon className="video-result-privacy-status" /> : <EyeOffIcon className="video-result-privacy-status" />}
+					{likedVideo.privacyStatus === "public" ? (
+						<EyeIcon className="video-result-privacy-status" />
+					) : (
+						<EyeOffIcon className="video-result-privacy-status" />
+					)}
 				</Tooltip>
 			</div>
 			<div className="video-result-info">

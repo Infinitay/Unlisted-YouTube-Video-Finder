@@ -3,6 +3,7 @@ import { LikedVideo, SearchingStatus } from "../types";
 import YouTubehelper from "../utils/YouTubeHelper";
 import { filterVideos } from "../utils/FilterHelper";
 import { Button } from "react-daisyui";
+
 interface props {
 	accessToken: string;
 	likedVideos: LikedVideo[];
@@ -15,6 +16,7 @@ interface props {
 	filterByTitle: string;
 	isFiltering: boolean;
 	setFilteredVideos: React.Dispatch<React.SetStateAction<LikedVideo[]>>;
+	showOnlyUnlisted: boolean;
 	searchingStatus: SearchingStatus;
 	setSearchingStatus: React.Dispatch<React.SetStateAction<SearchingStatus>>;
 }
@@ -30,6 +32,7 @@ const SearchButtonContainer: React.FC<props> = ({
 	filterByChannel,
 	filterByTitle,
 	isFiltering,
+	showOnlyUnlisted,
 	setFilteredVideos,
 	searchingStatus,
 	setSearchingStatus,
@@ -92,10 +95,29 @@ const SearchButtonContainer: React.FC<props> = ({
 		if (timeout.current) clearTimeout(timeout.current);
 		if (isFiltering) {
 			timeout.current = setTimeout(() => {
-				setFilteredVideos(filterVideos({ channelName: filterByChannel, videoTitle: filterByTitle, videos: likedVideos }));
+				setFilteredVideos(
+					filterVideos({
+						channelName: filterByChannel,
+						videoTitle: filterByTitle,
+						videos: likedVideos,
+						showOnlyUnlisted: showOnlyUnlisted,
+					})
+				);
 			}, 750);
+		} else {
+			if (showOnlyUnlisted) {
+				console.log("Filtering out listed videos.");
+				setFilteredVideos(
+					filterVideos({
+						videos: likedVideos,
+						showOnlyUnlisted: showOnlyUnlisted,
+					})
+				);
+			} else {
+				setFilteredVideos(likedVideos);
+			}
 		}
-	}, [filterByChannel, filterByTitle, isFiltering, likedVideos, setFilteredVideos]);
+	}, [filterByChannel, filterByTitle, isFiltering, showOnlyUnlisted, likedVideos, setFilteredVideos]);
 
 	useEffect(() => {
 		if (searchingStatus === SearchingStatus.ColdStart) setSearchPageToken("");
