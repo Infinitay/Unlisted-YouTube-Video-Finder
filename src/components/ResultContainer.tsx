@@ -1,5 +1,5 @@
 import React from "react";
-import { LikedVideo, PrivacyStatus } from "../types";
+import { LikedVideo } from "../types";
 import VideoResult from "./VideoResult";
 
 interface props {
