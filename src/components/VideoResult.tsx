@@ -6,9 +6,11 @@ import { LikedVideo } from "../types";
 
 interface props {
 	likedVideo: LikedVideo;
+	onClick: (event: React.MouseEvent<Element>) => void;
+	isSelected: boolean;
 }
 
-const VideoResult: React.FC<props> = ({ likedVideo }) => {
+const VideoResult: React.FC<props> = ({ likedVideo, onClick, isSelected }) => {
 	const getYouTubeVideoLink = (videoId: string): string => {
 		return `https://www.youtube.com/watch?v=${videoId}`;
 	};
@@ -22,7 +24,7 @@ const VideoResult: React.FC<props> = ({ likedVideo }) => {
 		window.open(url, "_blank");
 	};
 	return (
-		<div className="video-result" key={likedVideo.id}>
+		<div className={`video-result ${isSelected ? "video-result-selected" : ""}`} key={likedVideo.id} onClick={(event) => onClick(event)}>
 			<div className="video-result-thumbnail-container">
 				<img
 					className="video-result-thumbnail"

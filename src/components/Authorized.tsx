@@ -3,7 +3,7 @@ import Filters from "./Filters";
 import ResultContainer from "./ResultContainer";
 import { googleLogout } from "@react-oauth/google";
 import SearchButtonContainer from "./SearchButtonContainer";
-import { LikedVideo, SearchingStatus } from "../types";
+import { LikedVideo, SearchingStatus, SelectedVideos } from "../types";
 import { Button } from "react-daisyui";
 
 interface props {
@@ -31,6 +31,8 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 
 	const [searchingStatus, setSearchingStatus] = React.useState<SearchingStatus>(SearchingStatus.ColdStart);
 
+	const [selectedVideos, setSelectedVideos] = React.useState<SelectedVideos>({ videos: {}, length: 0 });
+
 	const logout = () => {
 		console.log("Logged out.");
 		setAccessToken("");
@@ -49,6 +51,7 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 		setIsFiltering(false);
 		setShowOnlyUnlisted(false);
 		setSearchingStatus(SearchingStatus.ColdStart);
+		setSelectedVideos({ videos: {}, length: 0 });
 	};
 
 	return (
@@ -87,7 +90,10 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				filteredVideos={filteredVideos}
 				isFiltering={isFiltering}
 				showOnlyUnlisted={showOnlyUnlisted}
+				selectedVideos={selectedVideos}
+				setSelectedVideos={setSelectedVideos}
 			/>
+			{selectedVideos.length > 0 && <div className="mt-3">{`Selected ${selectedVideos.length} videos`}</div>}
 			<div className="inline-flex my-3 flex-row space-x-5 items-center justify-evenly">
 				<Button color="secondary" onClick={logout}>
 					Sign Out
