@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Modal, Button } from "react-daisyui";
 import "./App.css";
 import Authorize from "./components/Authorize";
 import Authorized from "./components/Authorized";
+import ReactMarkdown from "react-markdown";
 
 function App() {
 	const [accessToken, setAccessToken] = useState<string>("");
+	const [privacyPolicy, setPrivacyPolicy] = useState<string>("");
+	const [showPrivacyPolicy, setShowPrivacyPolicy] = useState<boolean>(false);
+
+	useEffect(() => {
+		fetch("https://raw.githubusercontent.com/Infinitay/Unlisted-YouTube-Video-Finder/master/PRIVACY_POLICY.md")
+			.then((res) => res.text())
+			.then((text) => setPrivacyPolicy(text));
+	}, []);
 
 	return (
 		<div className="flex flex-col h-screen">
@@ -27,7 +37,22 @@ function App() {
 			</div>
 			{/* "sticky top-[100vh] text-center" or "mt-auto text-center" */}
 			<div className="mt-auto text-center">
-				<a href="https://github.com/Infinitay/Unlisted-YouTube-Video-Finder/blob/master/PRIVACY_POLICY.md">Privacy Policy</a>
+				<div className="cursor-pointer" onClick={() => setShowPrivacyPolicy(!showPrivacyPolicy)}>
+					Privacy Policy
+				</div>
+				<Modal open={showPrivacyPolicy} onClickBackdrop={() => setShowPrivacyPolicy(!showPrivacyPolicy)}>
+					<Modal.Header className="font-bold">
+						<a href="https://github.com/Infinitay/Unlisted-YouTube-Video-Finder/blob/master/PRIVACY_POLICY.md">Privacy Policy</a>
+					</Modal.Header>
+
+					<Modal.Body>
+						<ReactMarkdown children={privacyPolicy}></ReactMarkdown>
+					</Modal.Body>
+
+					<Modal.Actions>
+						<Button onClick={() => setShowPrivacyPolicy(!showPrivacyPolicy)}>Okay</Button>
+					</Modal.Actions>
+				</Modal>
 			</div>
 		</div>
 	);

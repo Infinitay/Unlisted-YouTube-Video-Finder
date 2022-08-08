@@ -1,7 +1,7 @@
 {
 	"name": "unlisted-youtube-video-finder",
 	"homepage": "https://infinitay.github.io/Unlisted-YouTube-Video-Finder/",
-	"version": "0.4.2",
+	"version": "0.4.3",
 	"private": true,
 	"dependencies": {
 		"@react-oauth/google": "^0.2.5",
@@ -16,6 +16,7 @@
 		"react": "^18.2.0",
 		"react-daisyui": "^2.0.4",
 		"react-dom": "^18.2.0",
+		"react-markdown": "^8.0.3",
 		"react-scripts": "5.0.1",
 		"typescript": "^4.6.3",
 		"web-vitals": "^2.1.4"
