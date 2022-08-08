@@ -6,12 +6,10 @@ This website helps you find unlisted YouTube videos with relative ease. Currentl
 
 ![](./screenshots/animation.gif)
 
-## Current Features
+## Features
 - Display all liked YouTube Videos
 - Filter by channel and video name
 - Filter by only unlisted videos
-
-## Upcoming Features
 - Video selection
 - Export data
 
