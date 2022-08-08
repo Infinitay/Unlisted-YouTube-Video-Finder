@@ -92,3 +92,9 @@ export enum SearchingStatus {
 	Paused,
 	Finished,
 }
+
+// Used to store the state of selected videos. This will be an object with the video id as the key, and the LikedVideo as the value.
+export interface SelectedVideos {
+	videos: { [id: string]: LikedVideo };
+	length: number; // Store the number of entries to make an O(1) lookup instead of O(n) with Object#keys#length
+}

@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+	--color-primary: theme("colors.primary");
+	--color-secondary: theme("colors.secondary");
+	--color-accent: theme("colors.accent");
+	--color-neutral: theme("colors.neutral");
+	--color-info: theme("colors.info");
+}
+
 .App {
 	display: flex;
 	flex-direction: column;
@@ -14,10 +22,11 @@
 .videos {
 	overflow-y: scroll;
 	max-width: 40vw;
-	max-height: 76vh;
+	max-height: 74vh;
 	/* 	border-radius: 3px;
 	border-color: black;
 	border-style: solid; */
+	@apply scroll-smooth snap-proximity snap-y;
 }
 
 /* 
@@ -41,6 +50,8 @@
 	align-items: flex-start;
 	/* Use margin over padding when placing the element in relation to another */
 	margin: 1rem 0 1rem 0;
+	@apply rounded snap-center;
+	@apply transition-all duration-300;
 }
 
 .video-result:first-child {
@@ -54,6 +65,18 @@
 /* Change all .video-result children to the same cursor style as a hyperlink */
 .video-result > * {
 	cursor: pointer;
+}
+
+.video-result:hover {
+	@apply bg-secondary/[50%] text-white;
+	@apply transition-colors duration-300 ease-in-out;
+	/* @apply shadow shadow-secondary ; */
+}
+
+.video-result-selected {
+	@apply bg-secondary text-white !important;
+	@apply transition-colors duration-300 ease-in-out;
+	/* @apply shadow shadow-secondary ; */
 }
 
 .video-result-thumbnail-container {
@@ -70,6 +93,7 @@
 	--mask: radial-gradient(2.5rem at 100% 100%, rgba(0, 0, 0, 0) 66%, rgb(0, 0, 0)) 100% 100%/100% 100% no-repeat;
 	-webkit-mask: var(--mask);
 	mask: var(--mask);
+	@apply rounded;
 }
 
 .video-result-privacy-status {
@@ -133,14 +157,14 @@ button#toggleFilter--disabled {
 @media (max-width: 1440px) {
 	.videos {
 		max-width: 60vw;
-		max-height: 66vh;
+		/* max-height: 66vh; */
 	}
 }
 
 @media (max-width: 1280px) {
 	.videos {
 		max-width: 60vw;
-		max-height: 62vh;
+		/* max-height: 74vh; */
 	}
 }
 
