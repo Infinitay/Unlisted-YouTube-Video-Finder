@@ -85,9 +85,11 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 					/>
 				)}
 			</div>
-			<div>
-				<SelectionOptions filteredVideos={filteredVideos} selectedVideos={selectedVideos} setSelectedVideos={setSelectedVideos} />
-			</div>
+			{likedVideos.length > 0 && (
+				<div>
+					<SelectionOptions filteredVideos={filteredVideos} selectedVideos={selectedVideos} setSelectedVideos={setSelectedVideos} />
+				</div>
+			)}
 			<ResultContainer
 				likedVideos={likedVideos}
 				amountLoaded={amountLoaded}
@@ -99,10 +101,12 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				setSelectedVideos={setSelectedVideos}
 			/>
 			<div className="inline-flex my-3 flex-row space-x-5 items-center justify-evenly">
-				<ShareSelected filteredVideos={filteredVideos} selectedVideos={[...Object.values(selectedVideos.videos)]}></ShareSelected>
-				<Button color="secondary" onClick={resetState}>
-					Reset All
-				</Button>
+				{likedVideos.length > 0 && <ShareSelected filteredVideos={filteredVideos} selectedVideos={[...Object.values(selectedVideos.videos)]} />}
+				{likedVideos.length > 0 && (
+					<Button color="secondary" onClick={resetState}>
+						Reset All
+					</Button>
+				)}
 				<Button color="secondary" onClick={logout}>
 					Sign Out
 				</Button>
