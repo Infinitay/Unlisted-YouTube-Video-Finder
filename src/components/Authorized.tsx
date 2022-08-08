@@ -5,6 +5,7 @@ import { googleLogout } from "@react-oauth/google";
 import SearchButtonContainer from "./SearchButtonContainer";
 import { LikedVideo, SearchingStatus, SelectedVideos } from "../types";
 import { Button } from "react-daisyui";
+import SelectionOptions from "./SelectionOptions";
 
 interface props {
 	accessToken: string;
@@ -82,6 +83,9 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 						setShowOnlyUnlisted={setShowOnlyUnlisted}
 					/>
 				)}
+			</div>
+			<div>
+				<SelectionOptions filteredVideos={filteredVideos} selectedVideos={selectedVideos} setSelectedVideos={setSelectedVideos} />
 			</div>
 			<ResultContainer
 				likedVideos={likedVideos}
