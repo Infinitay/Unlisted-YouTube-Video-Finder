@@ -6,6 +6,7 @@ import SearchButtonContainer from "./SearchButtonContainer";
 import { LikedVideo, SearchingStatus, SelectedVideos } from "../types";
 import { Button } from "react-daisyui";
 import SelectionOptions from "./SelectionOptions";
+import ShareSelected from "./ShareSelected";
 
 interface props {
 	accessToken: string;
@@ -97,13 +98,13 @@ const Authorized: React.FC<props> = ({ accessToken, setAccessToken }) => {
 				selectedVideos={selectedVideos}
 				setSelectedVideos={setSelectedVideos}
 			/>
-			{selectedVideos.length > 0 && <div className="mt-3">{`Selected ${selectedVideos.length} videos`}</div>}
 			<div className="inline-flex my-3 flex-row space-x-5 items-center justify-evenly">
-				<Button color="secondary" onClick={logout}>
-					Sign Out
-				</Button>
+				<ShareSelected filteredVideos={filteredVideos} selectedVideos={[...Object.values(selectedVideos.videos)]}></ShareSelected>
 				<Button color="secondary" onClick={resetState}>
 					Reset All
+				</Button>
+				<Button color="secondary" onClick={logout}>
+					Sign Out
 				</Button>
 			</div>
 		</div>
